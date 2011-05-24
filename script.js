@@ -31,12 +31,15 @@ function gotVideos(stuff){
 		id = stuff[i].id;
 		thumb = stuff[i].thumbnail_large;
 		$('#slider ul').append('<li class="vimeoThumb" ><img class="vimeo_'+id+'" src="'+thumb+'"/></li>');
-	/*	$('.vimeo_'+id).load(function{ want to preload the images but will do that later
-			$('#slider ul').width(+=)
-		});*/
+	//	$('.vimeo_'+id).load(function{ want to preload the images but will do that later
+			
+			
+	//	});
 	}
+	$('#slider ul').width(stuff.length*640);
+	$('#unorderedList').css( "left", "-640" );
 	$('#slider').bind('click',playVdeo);
-
+	
 }
 
 function playVdeo(clickEvent){
