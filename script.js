@@ -23,15 +23,33 @@ function init(){
 }
 
 function gotVideos(stuff){
-	number = stuff.length //store value to speed up loop
-	for(i = 0; i< number; i++){
+	numberOfVids = stuff.length //store value to speed up loop
+	for(i = 0; i< numberOfVids; i++){
 		//store the id and thumbnail adresses for easy handling
 		id = stuff[i].id;
 		thumb = stuff[i].thumbnail_large;
-		$('#slider ul').append('<img class="vimeoThumb" src="'+thumb+'"/>');
+		$('#slider ul').append('<li class="vimeoThumb" ><img class="'+id+' banana" src="'+thumb+'"/></li>');
 	}
+	$('#slider ul li').bind('click',playVdeo);
+	
+	//[0-9]{8}
+
 	
 }
+
+function playVdeo(clickEvent){
+		console.log(clickEvent)
+		console.log(clickEvent.target.classList)
+		var classes = clickEvent.target.classList
+		for(n=0;n<classes.length;n++){
+			if(classes[n].match([0-9]{8})){
+				clickEvent.
+			}
+		}
+		console.log(clickEvent.target.className)
+		//console.log(this.attr("class"))
+		//target.attr('class')
+	}
 
 function plus(){
 	currentSlide++
