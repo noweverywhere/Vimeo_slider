@@ -17,7 +17,6 @@ $smallerObject;
 for ($i = 0; $i <= 19; $i++) {
     $smallerObject[$i]['id'] = $videosObj[$i]['id'];
 	$smallerObject[$i]['thumbnail_large'] = $videosObj[$i]['thumbnail_large'];
-	
 }
 
 $AbreviatedVidData = json_encode($smallerObject);
