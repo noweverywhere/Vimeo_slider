@@ -111,8 +111,10 @@ function minus(){ // back/left
 }
 
 function pauseVideo(){
-	if($('#iframe_'+currentSlide).length>0){
-		alert('videoPlaying!');
+	if(document.getElementById('iframe_'+currentSlide)){
+		console.log('video found playing');
+		iframe = document.getElementById('iframe_'+currentSlide);
+		iframe.postMessage({"method": "pause"});
 	}
 }
 
