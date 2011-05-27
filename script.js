@@ -1,6 +1,5 @@
 $(document).ready(init);
 var displayListArr = []; //used to hold variables
-var displayListItemsArr = []; //holds the corresponding id's and thumbnail location
 var currentSlide = 0; //index for current slide
 var videoData, direction; //stores the ajax response
 var vimeoEmbedStr = '<iframe src="http://player.vimeo.com/video/XXX?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1" width="XXX" height="XXX" frameborder="0"></iframe>'
@@ -29,24 +28,23 @@ function gotVideos(dataReturned){
 	
 	//empty the unordered list to start with a clean slate 
 	$('#slider ul').empty;
-	
-	//store value to speed up loop
-	numberOfVids = dataReturned.length ;
-	for(i = 0; i< numberOfVids; i++){
-		//store the id and thumbnail adresses for easy handling
-		id = dataReturned[i].id;
-		thumb = dataReturned[i].thumbnail_large;
-		$('#slider ul').append('<li class="vimeoThumb" ><img class="vimeo_'+id+' index_'+i+'" src="'+thumb+'"/></li>');
-	
-	
-	//	$('.vimeo_'+id).load(function{ want to preload the images but will do that later
-	//	});
-	};
-	
-	$('#slider ul').width(dataReturned.length*640);
+	//set the width of the display area such that it can hold three slides
+	$('#slider ul').width(3*640);
+	//move the display area over one space so that we will see the middle of it at the beginning
 	$('#unorderedList').css( "left", "-640" );
+	
+	//add the correct set of video to the display area
+	determineDisplatList();//determine which videos need to be added
+	//add those items to the display area
+	for(r=0;r<3;r++){
+		id = videoData[displayListArr[r]].id;
+		thumb = videoData[displayListArr[r]].thumbnail_large;
+		$('#slider ul').append('<li class="vimeoThumb" ><img class="vimeo_'+id+' index_'+(displayListArr[2])+'" src="'+thumb+'"/></li>');
+	}
+	//bind the playVideo function to the display area, that way it is not neccessary to bind each item as it is added and removed
 	$('#slider').bind('click',playVideo);
-	determineDisplatList();
+	
+	
 	
 };
 
@@ -61,12 +59,6 @@ function determineDisplatList(){
 		displayListArr[2] = 0;
 	};
 	console.log('display list = '+displayListArr);
-	videoToPutInDisplayList = ''; //empty the list
-	for(c=0;c<displayListArr.length;c++){
-		videoToPutInDisplayList = videoData[c]
-		console.log(videoToPutInDisplayList)
-		displayListItemsArr.push(videoToPutInDisplayList)
-	}
 };
 
 function playVideo(clickEvent){
@@ -110,20 +102,17 @@ function minus(){ // back/left
 
 function advanceSlides(){
 
-	
-	console.log('displayListItemsArr = '+displayListItemsArr);
-
 	if(direction == 1){ //going to right
 	
-		id = displayListItemsArr[2].id;
-		thumb = displayListItemsArr[2].thumbnail_large;
+		id = videoData[displayListArr[2]].id;
+		thumb = videoData[displayListArr[2]].thumbnail_large;
 		
 		$('#slider ul').append('<li class="vimeoThumb" ><img class="vimeo_'+id+' index_'+(displayListArr[2])+'" src="'+thumb+'"/></li>');
 		$("#slider ul li:first-child").remove();
 	}else{ //going to left
 	
-		id = displayListItemsArr[0].id;
-		thumb = displayListItemsArr[0].thumbnail_large;
+		id = videoData[displayListArr[0]].id;
+		thumb = videoData[displayListArr[0]].thumbnail_large;
 		
 		$('#slider ul').prepend('<li class="vimeoThumb" ><img class="vimeo_'+id+' index_'+(displayListArr[0])+'" src="'+thumb+'"/></li>');
 		$("#slider ul li:last-child").remove();
