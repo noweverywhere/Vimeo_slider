@@ -88,6 +88,14 @@ function playVideo(clickEvent){
 		//embed the video with the array of string values created when script first loads
 		$('.vimeo_'+idNumber).replaceWith(vimArr[0]+currentSlide+vimArr[1]+idNumber+vimArr[2]+currentSlide+vimArr[3]+width+vimArr[4]+height+vimArr[5]);
 	};
+	
+	var head= document.getElementsByTagName('head')[0];
+	var script= document.createElement('script');
+	script.type= 'text/javascript';
+	script.src= 'froogaloop.min.js';
+	head.appendChild(script);
+	
+	
 };
 //need to find out how to handle pausing the video when user clicks next or back
 //http://vimeo.com/api/docs/player-js
@@ -112,9 +120,11 @@ function minus(){ // back/left
 
 function pauseVideo(){
 	if(document.getElementById('iframe_'+currentSlide)){
-		console.log('video found playing');
 		iframe = document.getElementById('iframe_'+currentSlide);
-		iframe.postMessage({"method": "pause"});
+		iframe.api("api_pause");
+		console.log('video found playing');
+		
+		//iframe.postMessage({"method": "pause"});
 	}
 }
 
