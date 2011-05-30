@@ -89,6 +89,7 @@ function playVideo(clickEvent){
 		$('.vimeo_'+idNumber).replaceWith(vimArr[0]+currentSlide+vimArr[1]+idNumber+vimArr[2]+currentSlide+vimArr[3]+width+vimArr[4]+height+vimArr[5]);
 	};
 	
+	//adds the froogaloop javascript library to commnicate with the iframe object.
 	var head= document.getElementsByTagName('head')[0];
 	var script= document.createElement('script');
 	script.type= 'text/javascript';
