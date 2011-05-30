@@ -1,4 +1,7 @@
 <?php 
+
+//$response = wp_remote_get('http://wordpress.org');
+
 $c = curl_init();
 
 curl_setopt($c, CURLOPT_URL, "http://vimeo.com/api/v2/fmenterprises/videos.json");		//url we want to load
