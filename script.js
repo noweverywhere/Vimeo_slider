@@ -1,11 +1,26 @@
-$(document).ready(init);
-var totalNumOfVids;
-var displayListArr = []; //used to hold variables
-var currentSlide = 0; //index for current slide
-var videoData, direction; //stores the ajax response
-var vimeoEmbedStr = '<iframe id="iframe_XXX" src="http://player.vimeo.com/video/XXX?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1&amp;api=1&amp;player_id=XXX" width="XXX" height="XXX" frameborder="0"></iframe>'
-var vimArr = vimeoEmbedStr.split('XXX'); //holds the strings for the videos to be embedded
-vimeoEmbedStr = ''; //clears out variable after it has been used
+(function ($) {
+    $.fn.slider = function (options) {
+        var $this = this;
+        var settings = {
+            'width'			: this.width(),
+            'height'		: this.height(),
+            'wait'			: 10000,
+            'transition'	: 750,
+            'direction'		: 'left',
+            'showControls'	: true,
+            'showProgress'	: true,
+            'hoverPause'	: true,
+            'autoplay'		: true,
+			'slidesInDom'	: 5
+        },
+		totalNumOfVids,
+		displayListArr = [], //used to hold variables
+		currentSlide = 0, //index for current slide
+		videoData, 
+		direction, //stores the ajax response
+		vimeoEmbedStr = '<iframe id="iframe_XXX" src="http://player.vimeo.com/video/XXX?title=0&amp;byline=0&amp;portrait=0&amp;autoplay=1&amp;api=1&amp;player_id=XXX" width="XXX" height="XXX" frameborder="0"></iframe>',
+		vimArr = vimeoEmbedStr.split('XXX'), //holds the strings for the videos to be embedded
+		vimeoEmbedStr = ''; //clears out variable after it has been used
 
 function init(){
 	
@@ -129,38 +144,41 @@ function pauseVideo(){
 	}
 }
 
-function advanceSlides(){
+		function advanceSlides(){
 
-	if(direction == 1){ //going to right
+			if(direction == 1){ //going to right
+				
+				//store the values of the variables for easy use
+				id = videoData[displayListArr[2]].id;
+				thumb = videoData[displayListArr[2]].thumbnail_large;
+				
+				//add the new list item at the right. this does not affect the items the user can see
+				$('#slider ul').append('<li class="vimeoThumb" ><img class="vimeo_'+id+' index_'+(displayListArr[2])+'" src="'+thumb+'"/></li>');
+				//then remove the item on the far left this makes everything appear to shift 640 pixels left
+				$("#slider ul li:first-child").remove();
+				//to account for this add move everything 640 pixels right from the -640 the ul is normally at.
+				$('#unorderedList').css( "left", "0" );
+				//and slowly move the old item to the right
+				$('#unorderedList').animate({"left": "-=640px"}, "slow", "easeInOutQuad");
+				
+			}else{ //going to left
+			
+				//store the values of the variables for easy use
+				id = videoData[displayListArr[0]].id;
+				thumb = videoData[displayListArr[0]].thumbnail_large;
+				
+				//add the new list item at the left. this pushes them all to the right
+				$('#slider ul').prepend('<li class="vimeoThumb" ><img class="vimeo_'+id+' index_'+(displayListArr[0])+'" src="'+thumb+'"/></li>');
+				//to account for this we need to take off 640 pixel on the left in addition to the 640 we took off earlier
+				$('#unorderedList').css( "left", "-1280" );
+				//remove the last item in the list. this does not affect anything the user can see.
+				$("#slider ul li:last-child").remove();
+				//now slowly move the display are over to show the new item
+				$('#unorderedList').animate({"left": "+=640px"}, "slow", "easeInOutQuad");
+				
+			}
+		}
 		
-		//store the values of the variables for easy use
-		id = videoData[displayListArr[2]].id;
-		thumb = videoData[displayListArr[2]].thumbnail_large;
-		
-		//add the new list item at the right. this does not affect the items the user can see
-		$('#slider ul').append('<li class="vimeoThumb" ><img class="vimeo_'+id+' index_'+(displayListArr[2])+'" src="'+thumb+'"/></li>');
-		//then remove the item on the far left this makes everything appear to shift 640 pixels left
-		$("#slider ul li:first-child").remove();
-		//to account for this add move everything 640 pixels right from the -640 the ul is normally at.
-		$('#unorderedList').css( "left", "0" );
-		//and slowly move the old item to the right
-		$('#unorderedList').animate({"left": "-=640px"}, "slow", "easeInOutQuad");
-		
-	}else{ //going to left
-	
-		//store the values of the variables for easy use
-		id = videoData[displayListArr[0]].id;
-		thumb = videoData[displayListArr[0]].thumbnail_large;
-		
-		//add the new list item at the left. this pushes them all to the right
-		$('#slider ul').prepend('<li class="vimeoThumb" ><img class="vimeo_'+id+' index_'+(displayListArr[0])+'" src="'+thumb+'"/></li>');
-		//to account for this we need to take off 640 pixel on the left in addition to the 640 we took off earlier
-		$('#unorderedList').css( "left", "-1280" );
-		//remove the last item in the list. this does not affect anything the user can see.
-		$("#slider ul li:last-child").remove();
-		//now slowly move the display are over to show the new item
-		$('#unorderedList').animate({"left": "+=640px"}, "slow", "easeInOutQuad");
-		
-	}
-	
-};
+		_init();
+	};
+})(jQuery);
