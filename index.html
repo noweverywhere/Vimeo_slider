@@ -1,4 +1,4 @@
-vi<!DOCTYPE html>
+<!DOCTYPE html>
 <head>
 <style>
 
@@ -72,7 +72,7 @@ a img {
 		bottom:0px;
 	}
 	
-	#slider{
+	#target{
 		position:absolute;
 		width:640px;
 		height:480px;
@@ -81,13 +81,13 @@ a img {
 		margin:50px
 	}
 	
-	#slider ul{
+	#target ul{
 		height:480px;
 		position:absolute;
 		
 	}
 	
-	#slider li{
+	#target li{
 		width:630px;
 		height:470px;
 		border:solid 5px red;
@@ -99,42 +99,35 @@ a img {
 		background-color:#FCC;
 	}
 	
-	#plus{
+	#vs_plus{
 		background-color:#0C0;
 	}
 		
-	#minus{
+	#vs_minus{
 		background-color:#C00;
 	}
 	
-	#plus,#minus{
+	#vs_plus,#vs_minus{
 		padding:100px;
 		float:left;
 		margin-top:700px;
 	}
 	
 </style>
-
+<link rel="stylesheet" href="jquery.slider.css" type="text/css" media="screen" />
 </head>
 <body>
 	<div id="wrapper">
 		<div id="header">
 		</div>
-		<div id="slider">
-			<ul id="unorderedList">
-				
-			</ul>
+		<div id="target">
+			<img src="http://placekitten.com/640/360" />
+			<img src="http://placekitten.com/640/361" />
+			<img src="http://placekitten.com/640/362" />
+			<img src="http://placekitten.com/640/363" />
+			<iframe src="http://player.vimeo.com/video/27003856?title=0&amp;byline=0&amp;portrait=0" width="640" height="360" frameborder="0"></iframe>
 		</div>
-		
-		
-		
-		<div id="minus">
-		-
-		</div>
-		
-		<div id="plus">
-		+
-		</div>
+
 		
 	</div>
 	<div id="footer">
@@ -142,5 +135,10 @@ a img {
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.js"></script>
 	<script src="easingPlugIn-min.js"></script>
 	<script src="script.js"></script>
+	<script> 
+		$(document).ready(function() {
+		  $('#target').slider({'height':'360px'});
+		})
+	</script>
 </body>
 </html>

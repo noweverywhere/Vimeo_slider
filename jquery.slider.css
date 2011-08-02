@@ -1,0 +1,81 @@
+.jquery-slider {
+    overflow: hidden;
+    position: relative;
+}
+.jquery-slider-element {
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    display:block;
+	z-index:89;
+	float:left;
+}
+.jquery-slider-control {
+    position: absolute;
+	z-index:90;
+	width:38px;
+	height:50px;
+	margin-top:230px;
+    opacity: 0;
+}
+.jquery-slider-control:hover {
+   /* opacity: 1;*/
+}
+.jquery-slider-control-prev {
+    left: 5px;
+    top: 5px;
+	background-color:#00F;
+}
+.jquery-slider-control-next {
+    right: 5px;
+    top: 5px;
+	background-color:#F00;
+}
+.jquery-slider-pages {
+    overflow: hidden;
+    position: absolute;
+	z-index:90;
+    left: 5px;
+    bottom: 5px;
+    height: 20px;
+    right: 5px;
+}
+
+
+
+.jquery-slider-page {
+    overflow: hidden;
+    position: relative;
+    display: block;
+    float: right;
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    margin: 0;
+    background: #999;
+    opacity: 0.33;
+    margin: 3px;
+    border-radius: 6px;
+    box-shadow: #333 0 0 2px;
+}
+
+.jquery-slider-sliding .jquery-slider-page{
+	cursor:default;
+}
+
+.jquery-slider-sliding .jquery-slider-page{
+	cursor:default;
+}
+
+.jquery-slider-paused .pauseBtn{
+	
+}
+
+.jquery-slider-page-current {
+    opacity: 1;
+}
+
+#slider_elements_holder{
+	overflow:hidden;
+	position:absolute;
+}
